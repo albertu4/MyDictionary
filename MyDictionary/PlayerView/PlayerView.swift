@@ -15,8 +15,8 @@ struct PlayerView: View {
     
     var body: some View {
         Image(systemName: song1 ? "pause.circle.fill": "play.circle.fill")
-            .font(.system(size: 25))
-            .padding(.trailing)
+            .foregroundColor(.blue)
+            .font(.title)
             .onTapGesture {
                 soundManager.playSound(sound: sound)
                 song1.toggle()

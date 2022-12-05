@@ -30,19 +30,14 @@ struct LexicalCategory: Decodable {
 }
 
 struct Entry: Decodable {
-    let pronunciations: [Pronunciation]?
+    let pronunciations: [Pronunciation]
+//    let translations: [Translation]
+    let senses: [Sense]
+//    let synonyms: [String]?
+//    let antonyms: [String]?
+//    let examples: [String]?
+//    let domains: [String]?
 }
-
-enum Link: String {
-    
-    case word = "https://od-api.oxforddictionaries.com:443/api/v2/translations/en/ru/ace?strictMatch=false&fields=pronunciations"
-    
-    case translate = "https://od-api.oxforddictionaries.com/api/v2/translations/en/ru/ace?strictMatch=false&fields=translations"
-    
-//    case sentences =
-//            "https://od-api.oxforddictionaries.com:443/api/v2/sentences/\(language)/\(word_id)?strictMatch=\(strictMatch)"
-}
-
 
 extension Word {
     static func getWord() -> Word {

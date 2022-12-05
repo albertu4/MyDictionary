@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Pronunciation: Decodable {
+struct Pronunciation: Decodable, Hashable {
     let audioFile: String
     let dialects: [String]
     let phoneticSpelling: String

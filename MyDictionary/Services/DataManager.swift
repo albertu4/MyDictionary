@@ -38,11 +38,28 @@ class DataManager {
         sentences: [sentenceOne, sentenceTwo, sentenceThree]
     )
     
-    lazy var entry = Entry(pronunciations: [pronunciation])
+    lazy var entry = Entry(pronunciations: [pronunciationUK, pronunciationUS], senses: [sence])
     
-    lazy var pronunciation = Pronunciation(
+    lazy var sence = Sense(
+        id: "1",
+        notes: [note],
+        translations: [translation]
+    )
+    
+    lazy var note = Note(text: "note note note note note", type: "noteType")
+    
+    lazy var translation = Translation(text: "translationOne")
+    lazy var translationTwo = Translation(text: "translationTwo")
+    
+    lazy var pronunciationUK = Pronunciation(
         audioFile: "mp3",
-        dialects: ["Foo", "Bar", "Baz"],
+        dialects: ["British English"],
+        phoneticSpelling: "saksess"
+    )
+    
+    lazy var pronunciationUS = Pronunciation(
+        audioFile: "mp3",
+        dialects: ["American English"],
         phoneticSpelling: "saksess"
     )
     

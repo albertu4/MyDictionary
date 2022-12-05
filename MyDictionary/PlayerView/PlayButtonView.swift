@@ -9,18 +9,21 @@ import SwiftUI
 
 struct PlayButtonView: View {
     let sound: String
-    let text: String
+    let transcription: String
+    let englishKind: String
     
     var body: some View {
-        VStack(spacing: 10) {
+        HStack {
             PlayerView(sound: sound)
-            Text(text)
+            Text("/ \(transcription) / ")
+                .font(.headline)
+            Text(englishKind)
         }
     }
 }
 
 struct PlayButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayButtonView(sound: "", text: "American english")
+        PlayButtonView(sound: "", transcription: "saksess", englishKind: "American Enlgish")
     }
 }
