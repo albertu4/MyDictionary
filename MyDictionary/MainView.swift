@@ -19,11 +19,14 @@ struct MainView: View {
                 
                 List(word.results, id: \.lexicalEntries?.first?.lexicalCategory.id) { result in
                     
-                    HStack {
+                    HStack(alignment: .firstTextBaseline) {
                         Text(word.id)
                             .font(.title)
                             .fontWeight(.bold)
                         .foregroundColor(.blue)
+                        
+                        Text(result.lexicalEntries?.first?.lexicalCategory.id ?? "")
+                            .font(.subheadline)
                         
                         Spacer()
                         
