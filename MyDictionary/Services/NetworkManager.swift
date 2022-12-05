@@ -18,24 +18,15 @@ class NetworkManager {
     static let shared = NetworkManager()
     private init() {}
     
-    init(word: String) {
-        self.word = word.lowercased()
-    }
-    
     private let appId = "63af5f08"
     private let appKey = "9074834086355926399c7e0e9af39f74"
-    private let strictMatch = "false"
     
-    let language = "en"
-    let target_lang_translate = "ru"
-    var word = "success"
-    let fields = "pronunciations"
-    
-//    var word_id: String {
-//        word.lowercased()
-//    }
-    
-    func fetchWord(url: URL, completion: @escaping(Word) -> ()) {
+    func fetch(word: String, fromLanguage: String, toLanguage: String, completion: @escaping(Word) -> ()) {
+        
+        let wordId = word.lowercased()
+        
+        let url = URL(string: "https://od-api.oxforddictionaries.com/api/v2/translations/\(fromLanguage)/\(toLanguage)/\(wordId)?strictMatch=false")!
+        
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue(appId, forHTTPHeaderField: "app_id")
@@ -59,7 +50,11 @@ class NetworkManager {
         }).resume()
     }
     
-    func fetchSearchableWord(url: URL, completion: @escaping(Result) -> ()) {
+    func fetchSearchableWord(word: String, fromLanguage: String, toLanguage: String, completion: @escaping(Result) -> ()) {
+        
+        let wordId = word.lowercased()
+        let url = URL(string: "https://od-api.oxforddictionaries.com/api/v2/search/thesaurus/en?q=\(wordId)")!
+        
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue(appId, forHTTPHeaderField: "app_id")
@@ -113,60 +108,5 @@ class NetworkManager {
 //        }).resume()
 //    }
     
-//    func fetchEntry(url: URL, completion: @escaping(Entry) -> ()) {
-//        var request = URLRequest(url: url)
-//        request.addValue("application/json", forHTTPHeaderField: "Accept")
-//        request.addValue(appId, forHTTPHeaderField: "app_id")
-//        request.addValue(appKey, forHTTPHeaderField: "app_key")
-//
-//        URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
-//            guard let data = data else {
-//                print(error?.localizedDescription ?? NetworkError.noData)
-//                return
-//            }
-//
-//            do {
-//                let json = String(data: data, encoding: .utf8)
-//                guard let jsonData = json?.data(using: .utf8) else { return }
-//
-//                let entry = try JSONDecoder().decode(Entry.self, from: jsonData)
-//                print(entry)
-//                completion(entry)
-//            } catch let error {
-//                print("Entry", NetworkError.decodingError)
-//                print(error.localizedDescription)
-//            }
-//
-//        }).resume()
-//    }
-    
-//    func fetchTranslation(url: URL, completion: @escaping(Translation) -> ()) {
-//        var request = URLRequest(url: url)
-//        request.addValue("application/json", forHTTPHeaderField: "Accept")
-//        request.addValue(appId, forHTTPHeaderField: "app_id")
-//        request.addValue(appKey, forHTTPHeaderField: "app_key")
-//
-//        URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
-//            guard let data = data else {
-//                print(error?.localizedDescription ?? NetworkError.noData)
-//                return
-//            }
-//
-//            do {
-//                let json = String(data: data, encoding: .utf8)
-//                guard let jsonData = json?.data(using: .utf8) else { return }
-//
-//                let translation = try JSONDecoder().decode(Translation.self, from: jsonData)
-//
-//                print(translation)
-//
-//                completion(translation)
-//            } catch let error {
-//                print("tranlsation", NetworkError.decodingError)
-//                print(error.localizedDescription)
-//            }
-//
-//        }).resume()
-//    }
 
 }

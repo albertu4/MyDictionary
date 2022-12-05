@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
     @State private var word = Word.getWord()
     @State private var searchText = ""
+    @State private var isFavorite = false
     
     var body: some View {
         
@@ -18,10 +19,24 @@ struct MainView: View {
                 
                 List(word.results, id: \.lexicalEntries?.first?.lexicalCategory.id) { result in
                     
-                    Text(word.id)
-                        .font(.title)
-                        .fontWeight(.bold)
+                    HStack {
+                        Text(word.id)
+                            .font(.title)
+                            .fontWeight(.bold)
                         .foregroundColor(.blue)
+                        
+                        Spacer()
+                        
+                        Button {
+                            isFavorite.toggle()
+                        } label: {
+                            let image = isFavorite ? "heart" : "heart.fill"
+                            
+                            Image(systemName: image)
+                                .foregroundColor(.red)
+                        }
+
+                    }
                     
                     PronunciationView(result: result)
                     
@@ -33,25 +48,24 @@ struct MainView: View {
                         SenseView(senses: getSense(result: result), isExample: true)
                     }
                 }
-                
-                Button("Start") {
-                    fetchWord()
-                }
             }
             .navigationTitle("Word")
             .searchable(text: $searchText)
         }
+        .onChange(of: searchText) { text in
+            fetch(word: text)
+        }
     }
     
-    private var searchableWord: [String] {
-        var word: [String] = []
-        NetworkManager.shared.fetchSearchableWord(url: Link.shared.searching) { result in
-            word.append(result.label ?? "")
-        }
-        
-        return searchText == "" ? word : word.filter{ $0.contains(searchText.lowercased())
-        }
-    }
+//    private var searchableWord: [String] {
+//        var word: [String] = []
+//        NetworkManager.shared.fetchSearchableWord(url: Link.shared.searching) { result in
+//            word.append(result.label ?? "")
+//        }
+//
+//        return searchText == "" ? word : word.filter{ $0.contains(searchText.lowercased())
+//        }
+//    }
 }
     
 extension MainView {
@@ -60,27 +74,7 @@ extension MainView {
         guard let category = result.lexicalEntries?.first?.lexicalCategory.text else { return "" }
         return category
     }
-    
-    private func getSentences(result: Result) -> [Sentence] {
-        let sentences = getSentence(result: result)
-        return getLimitedCount(sentences: sentences)
-    }
-    
-    private func getLimitedCount(sentences: [Sentence]) -> [Sentence] {
-        var newSentences: [Sentence] = []
-        let iterationCount = min(5, sentences.count)
-        let shuffledSentences = sentences.shuffled()
-        for index in 0..<iterationCount {
-            newSentences.append(shuffledSentences[index])
-        }
-        return newSentences
-    }
-    
-    private func getSentence(result: Result) -> [Sentence] {
-        guard let sentences = result.lexicalEntries?.first?.sentences else { return []}
-        return sentences
-    }
-    
+      
     private func getSense(result: Result) -> [Sense] {
         guard let senses = result.lexicalEntries?.first?.entries?.first?.senses else { return [] }
         return senses
@@ -88,42 +82,11 @@ extension MainView {
 }
     
 extension MainView {
-    private func fetchWord() {
-        
-//        NetworkManager.shared.fetchWord(url: Link.shared.sentences) { word in
-//            self.word = word
-//        }
-        
-        NetworkManager.shared.fetchWord(url: Link.shared.pronunciation) { word
-            in
+    private func fetch(word: String) {
+        NetworkManager.shared.fetch(word: word, fromLanguage: "en", toLanguage: "ru") { word in
             self.word = word
         }
     }
-    
-//    private func fetchSearchableWord() {
-//        NetworkManager.shared.fetchSearchableWord(url: Link.shared.searching) { searching in
-//            searchText = searching.label ?? "error"
-//
-//        }
-//    }
-    
-//    private func fetchSenses() {
-//        NetworkManager.shared.fetchSense(url: Link.shared.translation) { senses in
-//            self.senses = senses
-//        }
-//    }
-//
-//    private func fetchEntry() {
-//        NetworkManager.shared.fetchEntry(url: Link.shared.translation) { entry in
-//            self.entry = entry
-//        }
-//    }
-//
-//    private func fetchTranslation() {
-//        NetworkManager.shared.fetchTranslation(url: Link.shared.translation) { translation in
-//            self.translation = translation
-//        }
-//    }
 }
 
 struct MainView_Previews: PreviewProvider {

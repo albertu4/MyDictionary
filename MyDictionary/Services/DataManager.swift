@@ -28,8 +28,6 @@ class DataManager {
     
     lazy var resultOfNoun = Result(
         id: "success",
-        label: "success label",
-        language: "en",
         lexicalEntries: [lexicalEntryOfNoun]
     )
     
@@ -41,14 +39,12 @@ class DataManager {
     
     lazy var lexicalEntryOfNoun = LexicalEntry(
         entries: [entry],
-        lexicalCategory: lexicalCategoryOfNoun,
-        sentences: [sentenceOne, sentenceTwo, sentenceThree]
+        lexicalCategory: lexicalCategoryOfNoun
     )
     
     lazy var lexicalEntryOfVerb = LexicalEntry(
         entries: [entry],
-        lexicalCategory: lexicalCategoryOfVerb,
-        sentences: [sentenceOne, sentenceTwo, sentenceThree]
+        lexicalCategory: lexicalCategoryOfVerb
     )
     
     lazy var entry = Entry(pronunciations: [pronunciationUK, pronunciationUS], senses: [sence])
@@ -84,8 +80,4 @@ class DataManager {
     
     lazy var lexicalCategoryOfNoun = LexicalCategory(id: "noun", text: "Noun")
     lazy var lexicalCategoryOfVerb = LexicalCategory(id: "verb", text: "Verb")
-    
-    lazy var sentenceOne = Sentence(text: "sentenceOne")
-    lazy var sentenceTwo = Sentence(text: "sentenceTwo")
-    lazy var sentenceThree = Sentence(text: "sentenceThree")
 }

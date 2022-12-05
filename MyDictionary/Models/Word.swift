@@ -14,15 +14,12 @@ struct Word: Decodable, Identifiable {
 
 struct Result: Decodable {
     let id: String
-    let label: String?
-    let language: String?
     let lexicalEntries: [LexicalEntry]?
 }
 
 struct LexicalEntry: Decodable {
     let entries: [Entry]?
     let lexicalCategory: LexicalCategory
-    let sentences: [Sentence]?
 }
 
 struct LexicalCategory: Decodable {
@@ -32,18 +29,12 @@ struct LexicalCategory: Decodable {
 
 struct Entry: Decodable {
     let pronunciations: [Pronunciation]
-//    let translations: [Translation]
     let senses: [Sense]
-//    let synonyms: [String]?
-//    let antonyms: [String]?
-//    let examples: [String]?
-//    let domains: [String]?
 }
 
 extension Word {
     static func getWord() -> Word {
         let resultOfNoun = DataManager.shared.resultOfNoun
-//        let resultOfVerb = DataManager.shared.resultOfVerb
         let word = Word(id: "success", results: [resultOfNoun])
         return word
     }
