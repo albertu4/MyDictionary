@@ -10,21 +10,34 @@ class DataManager {
     static let shared = DataManager()
     private init() {}
     
+    let favoriteOne = Favorite(
+        word: "success",
+        transcription: "səkˈsɛs",
+        pronunciation: "https://audio.oxforddictionaries.com/en/mp3/success_us_1.mp3"
+    )
+    
+    let favoriteTwo = Favorite(
+        word: "super",
+        transcription: "super",
+        pronunciation: "https://audio.oxforddictionaries.com/en/mp3/success_us_1.mp3"
+    )
+    
     var word: Word {
-        Word(id: "success", results: [resultOfNoun, resultOfVerb])
+        Word(id: "success", results: [resultOfNoun])
     }
     
     lazy var resultOfNoun = Result(
         id: "success",
+        label: "success label",
         language: "en",
         lexicalEntries: [lexicalEntryOfNoun]
     )
     
-    lazy var resultOfVerb = Result(
-        id: "success",
-        language: "en",
-        lexicalEntries: [lexicalEntryOfVerb]
-    )
+//    lazy var resultOfVerb = Result(
+//        id: "success",
+//        language: "en",
+//        lexicalEntries: [lexicalEntryOfVerb]
+//    )
     
     lazy var lexicalEntryOfNoun = LexicalEntry(
         entries: [entry],

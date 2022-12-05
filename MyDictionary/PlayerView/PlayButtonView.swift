@@ -17,7 +17,16 @@ struct PlayButtonView: View {
             PlayerView(sound: sound)
             Text("/ \(transcription) / ")
                 .font(.headline)
-            Text(englishKind)
+            
+            Spacer()
+            
+            if englishKind == "American English" {
+                Text("🇺🇸")
+                    .font(.largeTitle)
+            } else {
+                Text("🇬🇧")
+                    .font(.largeTitle)
+            }
         }
     }
 }

@@ -59,7 +59,7 @@ class NetworkManager {
         }).resume()
     }
     
-    func fetchSense(url: URL, completion: @escaping([Sense]) -> ()) {
+    func fetchSearchableWord(url: URL, completion: @escaping(Result) -> ()) {
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue(appId, forHTTPHeaderField: "app_id")
@@ -67,82 +67,106 @@ class NetworkManager {
         
         URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
             guard let data = data else {
-                print(error?.localizedDescription ?? NetworkError.noData)
+                print(NetworkError.noData)
                 return
             }
-            
+
             do {
-//                let jsonData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-//                print(jsonData!)
+                let searching = try JSONDecoder().decode(Result.self, from: data)
+                completion(searching)
                 
-                let json = String(data: data, encoding: .utf8)
-                guard let jsonData = json?.data(using: .utf8) else { return }
-                
-                let senses = try JSONDecoder().decode([Sense].self, from: jsonData)
-                
-                completion(senses)
             } catch let error {
-                print("Sense", NetworkError.decodingError)
+                print("Word2", NetworkError.decodingError)
                 print(error.localizedDescription)
             }
             
         }).resume()
     }
     
-    func fetchEntry(url: URL, completion: @escaping(Entry) -> ()) {
-        var request = URLRequest(url: url)
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue(appId, forHTTPHeaderField: "app_id")
-        request.addValue(appKey, forHTTPHeaderField: "app_key")
-        
-        URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? NetworkError.noData)
-                return
-            }
-            
-            do {
-                let json = String(data: data, encoding: .utf8)
-                guard let jsonData = json?.data(using: .utf8) else { return }
-                
-                let entry = try JSONDecoder().decode(Entry.self, from: jsonData)
-                print(entry)
-                completion(entry)
-            } catch let error {
-                print("Entry", NetworkError.decodingError)
-                print(error.localizedDescription)
-            }
-            
-        }).resume()
-    }
+//    func fetchSense(url: URL, completion: @escaping([Sense]) -> ()) {
+//        var request = URLRequest(url: url)
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//        request.addValue(appId, forHTTPHeaderField: "app_id")
+//        request.addValue(appKey, forHTTPHeaderField: "app_key")
+//
+//        URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+//            guard let data = data else {
+//                print(error?.localizedDescription ?? NetworkError.noData)
+//                return
+//            }
+//
+//            do {
+////                let jsonData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+////                print(jsonData!)
+//
+//                let json = String(data: data, encoding: .utf8)
+//                guard let jsonData = json?.data(using: .utf8) else { return }
+//
+//                let senses = try JSONDecoder().decode([Sense].self, from: jsonData)
+//
+//                completion(senses)
+//            } catch let error {
+//                print("Sense", NetworkError.decodingError)
+//                print(error.localizedDescription)
+//            }
+//
+//        }).resume()
+//    }
     
-    func fetchTranslation(url: URL, completion: @escaping(Translation) -> ()) {
-        var request = URLRequest(url: url)
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue(appId, forHTTPHeaderField: "app_id")
-        request.addValue(appKey, forHTTPHeaderField: "app_key")
-        
-        URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? NetworkError.noData)
-                return
-            }
-            
-            do {
-                let json = String(data: data, encoding: .utf8)
-                guard let jsonData = json?.data(using: .utf8) else { return }
-                
-                let translation = try JSONDecoder().decode(Translation.self, from: jsonData)
-                
-                print(translation)
-                
-                completion(translation)
-            } catch let error {
-                print("tranlsation", NetworkError.decodingError)
-                print(error.localizedDescription)
-            }
-            
-        }).resume()
-    }
+//    func fetchEntry(url: URL, completion: @escaping(Entry) -> ()) {
+//        var request = URLRequest(url: url)
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//        request.addValue(appId, forHTTPHeaderField: "app_id")
+//        request.addValue(appKey, forHTTPHeaderField: "app_key")
+//
+//        URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+//            guard let data = data else {
+//                print(error?.localizedDescription ?? NetworkError.noData)
+//                return
+//            }
+//
+//            do {
+//                let json = String(data: data, encoding: .utf8)
+//                guard let jsonData = json?.data(using: .utf8) else { return }
+//
+//                let entry = try JSONDecoder().decode(Entry.self, from: jsonData)
+//                print(entry)
+//                completion(entry)
+//            } catch let error {
+//                print("Entry", NetworkError.decodingError)
+//                print(error.localizedDescription)
+//            }
+//
+//        }).resume()
+//    }
+    
+//    func fetchTranslation(url: URL, completion: @escaping(Translation) -> ()) {
+//        var request = URLRequest(url: url)
+//        request.addValue("application/json", forHTTPHeaderField: "Accept")
+//        request.addValue(appId, forHTTPHeaderField: "app_id")
+//        request.addValue(appKey, forHTTPHeaderField: "app_key")
+//
+//        URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+//            guard let data = data else {
+//                print(error?.localizedDescription ?? NetworkError.noData)
+//                return
+//            }
+//
+//            do {
+//                let json = String(data: data, encoding: .utf8)
+//                guard let jsonData = json?.data(using: .utf8) else { return }
+//
+//                let translation = try JSONDecoder().decode(Translation.self, from: jsonData)
+//
+//                print(translation)
+//
+//                completion(translation)
+//            } catch let error {
+//                print("tranlsation", NetworkError.decodingError)
+//                print(error.localizedDescription)
+//            }
+//
+//        }).resume()
+//    }
 
 }

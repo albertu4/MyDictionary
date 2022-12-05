@@ -18,4 +18,6 @@ class Link {
     let translation = URL(string: "https://od-api.oxforddictionaries.com/api/v2/translations/en/ru/ace?strictMatch=false&fields=translations")!
     
     let all = URL(string: "https://od-api.oxforddictionaries.com/api/v2/")!
+    
+    let searching = URL(string: "https://od-api.oxforddictionaries.com/api/v2/search/thesaurus/en?q=\(NetworkManager.shared.word)")!
 }

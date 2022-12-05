@@ -17,10 +17,7 @@ struct SenseView: View {
             if isExample {
                 ExampleView(examples: getExamples(sense: sense))
             } else {
-//                VStack(alignment: .leading) {
-                    TranslationView(translations: getTranslations(sense: sense))
-                    //                    NoteView(notes: getNotes(sense: sense))
-//                }
+                TranslationView(translations: getTranslations(sense: sense))
             }
         }
     }
@@ -33,10 +30,10 @@ extension SenseView {
         return translations
     }
     
-    private func getNotes(sense: Sense?) -> [Note] {
-        guard let notes = sense?.notes else { return [] }
-        return notes
-    }
+//    private func getNotes(sense: Sense?) -> [Note] {
+//        guard let notes = sense?.notes else { return [] }
+//        return notes
+//    }
     
     private func getExamples(sense: Sense) -> [Example] {
         guard let examples = sense.examples else { return [] }
@@ -46,6 +43,6 @@ extension SenseView {
 
 struct SenseView_Previews: PreviewProvider {
     static var previews: some View {
-        SenseView(senses: (Word.getWord().results.first?.lexicalEntries.first?.entries?.first?.senses)!, isExample: true)
+        SenseView(senses: (Word.getWord().results.first?.lexicalEntries?.first?.entries?.first?.senses)!, isExample: true)
     }
 }

@@ -19,6 +19,6 @@ struct NoteView: View {
 
 struct NoteView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteView(notes: (Word.getWord().results.first?.lexicalEntries.first?.entries?.first?.senses.first?.notes)!)
+        NoteView(notes: (Word.getWord().results.first?.lexicalEntries?.first?.entries?.first?.senses.first?.notes)!)
     }
 }

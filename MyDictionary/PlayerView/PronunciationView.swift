@@ -12,21 +12,18 @@ struct PronunciationView: View {
     let result: Result
     
     var body: some View {
-        
-//        VStack(alignment: .leading, spacing: 15) {
-            ForEach(getPronunciations(result: result), id: \.self) { pronunciation in
-                
-                PlayButtonView(
-                    sound: pronunciation.audioFile,
-                    transcription: pronunciation.phoneticSpelling,
-                    englishKind: pronunciation.dialects.first ?? ""
-                )
-            }
-//        }
+        ForEach(getPronunciations(result: result), id: \.self) { pronunciation in
+            
+            PlayButtonView(
+                sound: pronunciation.audioFile,
+                transcription: pronunciation.phoneticSpelling,
+                englishKind: pronunciation.dialects.first ?? ""
+            )
+        }
     }
     
     private func getPronunciations(result: Result) -> [Pronunciation] {
-        guard let pronunciations = result.lexicalEntries.first?.entries?.first?.pronunciations else { return [] }
+        guard let pronunciations = result.lexicalEntries?.first?.entries?.first?.pronunciations else { return [] }
         return pronunciations
     }
 }

@@ -19,6 +19,6 @@ struct TranslationView: View {
 
 struct TranslationView_Previews: PreviewProvider {
     static var previews: some View {
-        TranslationView(translations: (Word.getWord().results.first?.lexicalEntries.first?.entries?.first?.senses.first?.translations)!)
+        TranslationView(translations: (Word.getWord().results.first?.lexicalEntries?.first?.entries?.first?.senses.first?.translations)!)
     }
 }

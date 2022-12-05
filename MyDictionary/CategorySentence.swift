@@ -19,6 +19,6 @@ struct CategorySentence: View {
 
 struct CategorySentence_Previews: PreviewProvider {
     static var previews: some View {
-        CategorySentence(sentences: (Word.getWord().results.first?.lexicalEntries.first?.sentences)!)
+        CategorySentence(sentences: (Word.getWord().results.first?.lexicalEntries?.first?.sentences)!)
     }
 }

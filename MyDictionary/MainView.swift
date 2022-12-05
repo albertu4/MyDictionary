@@ -9,13 +9,14 @@ import SwiftUI
 
 struct MainView: View {
     @State private var word = Word.getWord()
+    @State private var searchText = ""
     
     var body: some View {
         
         NavigationView {
             VStack {
                 
-                List(word.results, id: \.lexicalEntries.first?.lexicalCategory.id) { result in
+                List(word.results, id: \.lexicalEntries?.first?.lexicalCategory.id) { result in
                     
                     Text(word.id)
                         .font(.title)
@@ -32,13 +33,23 @@ struct MainView: View {
                         SenseView(senses: getSense(result: result), isExample: true)
                     }
                 }
-                .listStyle(.sidebar)
                 
                 Button("Start") {
                     fetchWord()
                 }
             }
             .navigationTitle("Word")
+            .searchable(text: $searchText)
+        }
+    }
+    
+    private var searchableWord: [String] {
+        var word: [String] = []
+        NetworkManager.shared.fetchSearchableWord(url: Link.shared.searching) { result in
+            word.append(result.label ?? "")
+        }
+        
+        return searchText == "" ? word : word.filter{ $0.contains(searchText.lowercased())
         }
     }
 }
@@ -46,7 +57,7 @@ struct MainView: View {
 extension MainView {
     
     private func getCategory(result: Result) -> String {
-        guard let category = result.lexicalEntries.first?.lexicalCategory.text else { return "" }
+        guard let category = result.lexicalEntries?.first?.lexicalCategory.text else { return "" }
         return category
     }
     
@@ -66,12 +77,12 @@ extension MainView {
     }
     
     private func getSentence(result: Result) -> [Sentence] {
-        guard let sentences = result.lexicalEntries.first?.sentences else { return []}
+        guard let sentences = result.lexicalEntries?.first?.sentences else { return []}
         return sentences
     }
     
     private func getSense(result: Result) -> [Sense] {
-        guard let senses = result.lexicalEntries.first?.entries?.first?.senses else { return [] }
+        guard let senses = result.lexicalEntries?.first?.entries?.first?.senses else { return [] }
         return senses
     }
 }
@@ -88,6 +99,13 @@ extension MainView {
             self.word = word
         }
     }
+    
+//    private func fetchSearchableWord() {
+//        NetworkManager.shared.fetchSearchableWord(url: Link.shared.searching) { searching in
+//            searchText = searching.label ?? "error"
+//
+//        }
+//    }
     
 //    private func fetchSenses() {
 //        NetworkManager.shared.fetchSense(url: Link.shared.translation) { senses in

@@ -13,17 +13,15 @@ struct ExampleView: View {
     var body: some View {
         ForEach(examples, id: \.self) { example in
             
-            Group {
-                Text("- " + (example?.text ?? ""))
-                    .bold()
-                TranslationView(translations: example?.translations ?? [])
-            }
+            Text("- " + (example?.text ?? ""))
+                .bold()
+            TranslationView(translations: example?.translations ?? [])
         }
     }
 }
 
 struct ExampleView_Previews: PreviewProvider {
     static var previews: some View {
-        ExampleView(examples: (Word.getWord().results.first?.lexicalEntries.first?.entries?.first?.senses.first?.examples)!)
+        ExampleView(examples: (Word.getWord().results.first?.lexicalEntries?.first?.entries?.first?.senses.first?.examples)!)
     }
 }
