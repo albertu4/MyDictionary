@@ -9,15 +9,24 @@ import SwiftUI
 
 struct SenseView: View {
     let senses: [Sense]
+    let isExample: Bool
     
     var body: some View {
         ForEach(senses, id: \.id) { sense in
-            VStack(alignment: .leading) {
-                TranslationView(translations: getTranslations(sense: sense))
-                NoteView(notes: getNotes(sense: sense))
+            
+            if isExample {
+                ExampleView(examples: getExamples(sense: sense))
+            } else {
+//                VStack(alignment: .leading) {
+                    TranslationView(translations: getTranslations(sense: sense))
+                    //                    NoteView(notes: getNotes(sense: sense))
+//                }
             }
         }
     }
+}
+
+extension SenseView {
     
     private func getTranslations(sense: Sense?) -> [Translation] {
         guard let translations = sense?.translations else { return [] }
@@ -28,10 +37,15 @@ struct SenseView: View {
         guard let notes = sense?.notes else { return [] }
         return notes
     }
+    
+    private func getExamples(sense: Sense) -> [Example] {
+        guard let examples = sense.examples else { return [] }
+        return examples
+    }
 }
 
 struct SenseView_Previews: PreviewProvider {
     static var previews: some View {
-        SenseView(senses: (Word.getWord().results.first?.lexicalEntries.first?.entries?.first?.senses)!)
+        SenseView(senses: (Word.getWord().results.first?.lexicalEntries.first?.entries?.first?.senses)!, isExample: true)
     }
 }

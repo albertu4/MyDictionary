@@ -26,6 +26,10 @@
 		743EE6EA293B793B00F003BA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743EE6E9293B793B00F003BA /* NetworkManager.swift */; };
 		743EE6ED293BCEA600F003BA /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743EE6EC293BCEA600F003BA /* PlayerView.swift */; };
 		743EE6EF293BD67F00F003BA /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743EE6EE293BD67F00F003BA /* Sentence.swift */; };
+		74E6C69A293DA72900BF079C /* ExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6C699293DA72900BF079C /* ExampleView.swift */; };
+		74E6C69E293DC87C00BF079C /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6C69D293DC87C00BF079C /* ToolTip.swift */; };
+		74E6C6A0293DC90E00BF079C /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6C69F293DC90E00BF079C /* ToolTipView.swift */; };
+		74E6C6A2293DDA2700BF079C /* MenuVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6C6A1293DDA2700BF079C /* MenuVIew.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +53,10 @@
 		743EE6E9293B793B00F003BA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		743EE6EC293BCEA600F003BA /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		743EE6EE293BD67F00F003BA /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
+		74E6C699293DA72900BF079C /* ExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleView.swift; sourceTree = "<group>"; };
+		74E6C69D293DC87C00BF079C /* ToolTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTip.swift; sourceTree = "<group>"; };
+		74E6C69F293DC90E00BF079C /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
+		74E6C6A1293DDA2700BF079C /* MenuVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVIew.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +75,9 @@
 			children = (
 				7418E994293C85FE00C96F47 /* SenseView.swift */,
 				7418E992293C7BE800C96F47 /* TranslationView.swift */,
+				74E6C6A1293DDA2700BF079C /* MenuVIew.swift */,
 				7418E999293C86D900C96F47 /* NoteView.swift */,
+				74E6C699293DA72900BF079C /* ExampleView.swift */,
 			);
 			path = Senses;
 			sourceTree = "<group>";
@@ -104,9 +114,11 @@
 				743EE6D3293B75CD00F003BA /* MyDictionaryApp.swift */,
 				743EE6D5293B75CD00F003BA /* ContentView.swift */,
 				743EE6E1293B76A300F003BA /* MainView.swift */,
+				7418E98C293C667500C96F47 /* CategorySentence.swift */,
+				74E6C69D293DC87C00BF079C /* ToolTip.swift */,
+				74E6C69F293DC90E00BF079C /* ToolTipView.swift */,
 				7418E996293C86A700C96F47 /* Senses */,
 				7418E99D293CC84F00C96F47 /* PlayerView */,
-				7418E98C293C667500C96F47 /* CategorySentence.swift */,
 				743EE6EB293B793F00F003BA /* Services */,
 				743EE6E5293B777200F003BA /* Models */,
 				743EE6D7293B75CF00F003BA /* Assets.xcassets */,
@@ -216,14 +228,18 @@
 			files = (
 				7418E98D293C667500C96F47 /* CategorySentence.swift in Sources */,
 				743EE6D6293B75CD00F003BA /* ContentView.swift in Sources */,
+				74E6C6A0293DC90E00BF079C /* ToolTipView.swift in Sources */,
 				743EE6E4293B776C00F003BA /* Word.swift in Sources */,
 				7418E99C293C94F200C96F47 /* Link.swift in Sources */,
 				743EE6EA293B793B00F003BA /* NetworkManager.swift in Sources */,
+				74E6C69A293DA72900BF079C /* ExampleView.swift in Sources */,
 				7418E989293C3C9300C96F47 /* Pronunciation.swift in Sources */,
+				74E6C6A2293DDA2700BF079C /* MenuVIew.swift in Sources */,
 				7418E993293C7BE800C96F47 /* TranslationView.swift in Sources */,
 				743EE6ED293BCEA600F003BA /* PlayerView.swift in Sources */,
 				7418E995293C85FE00C96F47 /* SenseView.swift in Sources */,
 				743EE6E2293B76A300F003BA /* MainView.swift in Sources */,
+				74E6C69E293DC87C00BF079C /* ToolTip.swift in Sources */,
 				7418E98F293C6CB200C96F47 /* PlayButtonView.swift in Sources */,
 				7418E991293C785500C96F47 /* Sense.swift in Sources */,
 				7418E99A293C86D900C96F47 /* NoteView.swift in Sources */,

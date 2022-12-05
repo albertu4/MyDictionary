@@ -13,7 +13,7 @@ struct PronunciationView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 15) {
+//        VStack(alignment: .leading, spacing: 15) {
             ForEach(getPronunciations(result: result), id: \.self) { pronunciation in
                 
                 PlayButtonView(
@@ -22,7 +22,7 @@ struct PronunciationView: View {
                     englishKind: pronunciation.dialects.first ?? ""
                 )
             }
-        }
+//        }
     }
     
     private func getPronunciations(result: Result) -> [Pronunciation] {

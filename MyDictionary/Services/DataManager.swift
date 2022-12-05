@@ -43,6 +43,12 @@ class DataManager {
     lazy var sence = Sense(
         id: "1",
         notes: [note],
+        translations: [translation],
+        examples: [example]
+    )
+    
+    lazy var example = Example(
+        text: "Example text",
         translations: [translation]
     )
     
@@ -52,15 +58,15 @@ class DataManager {
     lazy var translationTwo = Translation(text: "translationTwo")
     
     lazy var pronunciationUK = Pronunciation(
-        audioFile: "mp3",
+        audioFile: "https://audio.oxforddictionaries.com/en/mp3/success_gb_1.mp3",
         dialects: ["British English"],
-        phoneticSpelling: "saksess"
+        phoneticSpelling: "səkˈsɛs"
     )
     
     lazy var pronunciationUS = Pronunciation(
-        audioFile: "mp3",
+        audioFile: "https://audio.oxforddictionaries.com/en/mp3/success_us_1.mp3",
         dialects: ["American English"],
-        phoneticSpelling: "saksess"
+        phoneticSpelling: "səkˈsɛs"
     )
     
     lazy var lexicalCategoryOfNoun = LexicalCategory(id: "noun", text: "Noun")

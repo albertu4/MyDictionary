@@ -9,17 +9,12 @@ import SwiftUI
 
 struct MainView: View {
     @State private var word = Word.getWord()
-//    @State private var senses: [Sense] = []
-//    @State private var entry: Entry?
-//    @State private var translation: Translation?
     
     var body: some View {
         
         NavigationView {
-            
             VStack {
                 
-    
                 List(word.results, id: \.lexicalEntries.first?.lexicalCategory.id) { result in
                     
                     Text(word.id)
@@ -30,11 +25,11 @@ struct MainView: View {
                     PronunciationView(result: result)
                     
                     Section("Translation") {
-                        SenseView(senses: getSense(result: result))
+                        SenseView(senses: getSense(result: result), isExample: false)
                     }
                     
-                    Section(getCategory(result: result)) {
-                        CategorySentence(sentences: getSentences(result: result))
+                    Section("Examples") {
+                        SenseView(senses: getSense(result: result), isExample: true)
                     }
                 }
                 .listStyle(.sidebar)
@@ -43,9 +38,12 @@ struct MainView: View {
                     fetchWord()
                 }
             }
-                .navigationTitle(word.id)
+            .navigationTitle("Word")
         }
     }
+}
+    
+extension MainView {
     
     private func getCategory(result: Result) -> String {
         guard let category = result.lexicalEntries.first?.lexicalCategory.text else { return "" }
@@ -76,9 +74,9 @@ struct MainView: View {
         guard let senses = result.lexicalEntries.first?.entries?.first?.senses else { return [] }
         return senses
     }
+}
     
-    
-    
+extension MainView {
     private func fetchWord() {
         
 //        NetworkManager.shared.fetchWord(url: Link.shared.sentences) { word in

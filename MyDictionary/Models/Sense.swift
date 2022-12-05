@@ -11,6 +11,7 @@ struct Sense: Decodable, Identifiable {
     let id: String
     let notes: [Note]?
     let translations: [Translation]?
+    let examples: [Example]?
 }
 
 struct Note: Decodable {
@@ -20,4 +21,9 @@ struct Note: Decodable {
 
 struct Translation: Decodable, Hashable {
     let text: String
+}
+
+struct Example: Decodable, Hashable {
+    let text: String
+    let translations: [Translation]
 }

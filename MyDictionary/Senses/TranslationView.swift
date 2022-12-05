@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct TranslationView: View {
-    let translations: [Translation]
+    let translations: [Translation?]
     
     var body: some View {
         ForEach(translations, id: \.self) { translation in
-            Text(translation.text)
-                .font(.headline)
+            Text(translation?.text ?? "")
         }
     }
 }

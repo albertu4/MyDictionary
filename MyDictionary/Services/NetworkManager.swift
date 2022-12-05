@@ -28,7 +28,7 @@ class NetworkManager {
     
     let language = "en"
     let target_lang_translate = "ru"
-    var word = "Ace"
+    var word = "success"
     let fields = "pronunciations"
     
 //    var word_id: String {
