@@ -10,9 +10,12 @@ import SwiftUI
 @main
 struct MyDictionaryApp: App {
     
+    @StateObject private var storageManager = StorageManger.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, storageManager.viewContext)
         }
     }
 }

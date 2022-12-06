@@ -27,7 +27,6 @@
 		74C6D1B3293F1AA000DBFF59 /* FavoriteModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 74C6D1B1293F1AA000DBFF59 /* FavoriteModel.xcdatamodeld */; };
 		74E6C69A293DA72900BF079C /* ExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6C699293DA72900BF079C /* ExampleView.swift */; };
 		74E6C6A4293E0AE100BF079C /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6C6A3293E0AE100BF079C /* FavoriteView.swift */; };
-		74E6C6A6293E0C3600BF079C /* Favourite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E6C6A5293E0C3600BF079C /* Favourite.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +51,6 @@
 		74C6D1B2293F1AA000DBFF59 /* FavoriteModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteModel.xcdatamodel; sourceTree = "<group>"; };
 		74E6C699293DA72900BF079C /* ExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleView.swift; sourceTree = "<group>"; };
 		74E6C6A3293E0AE100BF079C /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
-		74E6C6A5293E0C3600BF079C /* Favourite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourite.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +131,6 @@
 				743EE6E3293B776C00F003BA /* Word.swift */,
 				7418E988293C3C9300C96F47 /* Pronunciation.swift */,
 				7418E990293C785500C96F47 /* Sense.swift */,
-				74E6C6A5293E0C3600BF079C /* Favourite.swift */,
 				74C6D1AD293EEEF400DBFF59 /* Searching.swift */,
 			);
 			path = Models;
@@ -233,7 +230,6 @@
 				7418E98F293C6CB200C96F47 /* PlayButtonView.swift in Sources */,
 				7418E991293C785500C96F47 /* Sense.swift in Sources */,
 				74E6C6A4293E0AE100BF079C /* FavoriteView.swift in Sources */,
-				74E6C6A6293E0C3600BF079C /* Favourite.swift in Sources */,
 				74C6D1AE293EEEF500DBFF59 /* Searching.swift in Sources */,
 				743EE6D4293B75CD00F003BA /* MyDictionaryApp.swift in Sources */,
 				7418E98B293C502400C96F47 /* DataManager.swift in Sources */,

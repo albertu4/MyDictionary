@@ -12,6 +12,9 @@ struct MainView: View {
     @State private var searching: Searching?
     @State private var searchText = ""
     @State private var isFavorite = false
+    @State private var alertPresented = false
+    var favorites: FetchedResults<Favorite>
+    @Environment(\.managedObjectContext) var managedObjectContext
     
     var body: some View {
         
@@ -32,12 +35,22 @@ struct MainView: View {
                         Spacer()
                         
                         Button {
-                            isFavorite.toggle()
-                        } label: {
-                            let image = isFavorite ? "heart" : "heart.fill"
                             
-                            Image(systemName: image)
-                                .foregroundColor(.red)
+                            if !favorites.contains(where: { $0.title == word.id }) {
+                                isFavorite.toggle()
+                                StorageManger.shared.saveWord(
+                                    word.id,
+                                    transcription: result.lexicalEntries?.first?.entries?.first?.pronunciations.first?.phoneticSpelling ?? "",
+                                    pronunciation: result.lexicalEntries?.first?.entries?.first?.pronunciations.first?.dialects.first ?? ""
+                                )
+                            } else {
+                                alertPresented.toggle()
+                            }
+                              
+                        } label: {
+                
+                            Image(systemName: "plus")
+                                .foregroundColor(.blue)
                         }
                         
                     }
@@ -51,6 +64,9 @@ struct MainView: View {
                     Section("Examples") {
                         SenseView(senses: getSense(result: result), isExample: true)
                     }
+                }
+                .alert("Word duplicate", isPresented: $alertPresented, actions: {}) {
+                    Text("Check word list")
                 }
             }
             .navigationTitle("Word")
@@ -91,8 +107,8 @@ extension MainView {
     }
 }
 
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
-    }
-}
+//struct MainView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainView()
+//    }
+//}

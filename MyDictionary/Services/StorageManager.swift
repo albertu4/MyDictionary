@@ -7,7 +7,7 @@
 
 import CoreData
 
-class StorageManger {
+class StorageManger: ObservableObject {
     
     static let shared = StorageManger()
     
@@ -21,9 +21,9 @@ class StorageManger {
         return container
     }()
     
-    private let viewContext: NSManagedObjectContext
+    let viewContext: NSManagedObjectContext
     
-    private init() {
+    init() {
         viewContext = persistentContainer.viewContext
     }
 }
@@ -44,6 +44,7 @@ extension StorageManger {
     // Save data
     func saveWord(_ title: String, transcription: String, pronunciation: String) {
         let word = Favorite(context: viewContext)
+        word.id = UUID()
         word.title = title
         word.transcription = transcription
         word.pronunciation = pronunciation
@@ -51,6 +52,20 @@ extension StorageManger {
     }
     
     func delete(word: Favorite) {
+        viewContext.delete(word)
+        saveContext()
+    }
+    
+    func saveWords(_ title: String, transcription: String, pronunciation: String, context: NSManagedObjectContext) {
+        let word = Favorite(context: context)
+        word.id = UUID()
+        word.title = title
+        word.transcription = transcription
+        word.pronunciation = pronunciation
+        saveContext()
+    }
+    
+    func deletes(word: Favorite) {
         viewContext.delete(word)
         saveContext()
     }

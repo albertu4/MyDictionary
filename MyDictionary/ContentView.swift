@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let favoriteList = Favourite.getFavorite()
+    
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.title)])
+    private var favorites: FetchedResults<Favorite>
     
     var body: some View {
         TabView {
-            MainView()
+            MainView(favorites: favorites)
                 .tabItem {
                     Image(systemName: "book.fill")
                     Text("Word")
                 }
-            FavoriteView()
+            FavoriteView(favorites: favorites)
                 .tabItem {
                     Image(systemName: "bookmark.fill")
                     Text("Favorite")
