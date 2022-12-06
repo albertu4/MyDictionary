@@ -9,7 +9,6 @@ import Foundation
 
 struct Sense: Decodable, Identifiable {
     let id: String
-    let notes: [Note]?
     let translations: [Translation]?
     let examples: [Example]?
 }

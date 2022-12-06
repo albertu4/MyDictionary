@@ -25,7 +25,11 @@ class NetworkManager {
         
         let wordId = word.lowercased()
         
-        let url = URL(string: "https://od-api.oxforddictionaries.com/api/v2/translations/\(fromLanguage)/\(toLanguage)/\(wordId)?strictMatch=false")!
+        guard let url = URL(string: "https://od-api.oxforddictionaries.com/api/v2/translations/\(fromLanguage)/\(toLanguage)/\(wordId)?strictMatch=false")
+        else {
+            print(NetworkError.invalidURL)
+            return
+        }
         
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -37,7 +41,7 @@ class NetworkManager {
                 print(NetworkError.noData)
                 return
             }
-
+            
             do {
                 let word = try JSONDecoder().decode(Word.self, from: data)
                 completion(word)
@@ -69,7 +73,7 @@ class NetworkManager {
                 print(NetworkError.noData)
                 return
             }
-
+            
             do {
                 let searching = try JSONDecoder().decode(Searching.self, from: data)
                 completion(searching)
@@ -82,35 +86,6 @@ class NetworkManager {
         }).resume()
     }
     
-//    func fetchSense(url: URL, completion: @escaping([Sense]) -> ()) {
-//        var request = URLRequest(url: url)
-//        request.addValue("application/json", forHTTPHeaderField: "Accept")
-//        request.addValue(appId, forHTTPHeaderField: "app_id")
-//        request.addValue(appKey, forHTTPHeaderField: "app_key")
-//
-//        URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
-//            guard let data = data else {
-//                print(error?.localizedDescription ?? NetworkError.noData)
-//                return
-//            }
-//
-//            do {
-////                let jsonData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-////                print(jsonData!)
-//
-//                let json = String(data: data, encoding: .utf8)
-//                guard let jsonData = json?.data(using: .utf8) else { return }
-//
-//                let senses = try JSONDecoder().decode([Sense].self, from: jsonData)
-//
-//                completion(senses)
-//            } catch let error {
-//                print("Sense", NetworkError.decodingError)
-//                print(error.localizedDescription)
-//            }
-//
-//        }).resume()
-//    }
-    
-
+    //                let jsonData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+    //                print(jsonData!)
 }

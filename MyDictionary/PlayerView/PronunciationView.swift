@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PronunciationView: View {
     
-    let result: Result
+    let result: ResultTranslation
     
     var body: some View {
         ForEach(getPronunciations(result: result), id: \.self) { pronunciation in
@@ -22,7 +22,7 @@ struct PronunciationView: View {
         }
     }
     
-    private func getPronunciations(result: Result) -> [Pronunciation] {
+    private func getPronunciations(result: ResultTranslation) -> [Pronunciation] {
         guard let pronunciations = result.lexicalEntries?.first?.entries?.first?.pronunciations else { return [] }
         return pronunciations
     }

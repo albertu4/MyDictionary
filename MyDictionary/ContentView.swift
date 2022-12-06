@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let favoriteList = Favorite.getFavorite()
+    private let favoriteList = Favourite.getFavorite()
     
     var body: some View {
         TabView {
@@ -17,7 +17,7 @@ struct ContentView: View {
                     Image(systemName: "book.fill")
                     Text("Word")
                 }
-            FavoriteView(favorites: favoriteList)
+            FavoriteView()
                 .tabItem {
                     Image(systemName: "bookmark.fill")
                     Text("Favorite")

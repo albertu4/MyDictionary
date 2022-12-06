@@ -9,10 +9,10 @@ import Foundation
 
 struct Word: Decodable, Identifiable {
     let id: String
-    let results: [Result]
+    let results: [ResultTranslation]
 }
 
-struct Result: Decodable {
+struct ResultTranslation: Decodable {
     let id: String
     let lexicalEntries: [LexicalEntry]?
 }

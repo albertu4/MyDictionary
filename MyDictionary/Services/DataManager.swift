@@ -10,13 +10,13 @@ class DataManager {
     static let shared = DataManager()
     private init() {}
     
-    let favoriteOne = Favorite(
+    let favoriteOne = Favourite(
         word: "success",
         transcription: "səkˈsɛs",
         pronunciation: "https://audio.oxforddictionaries.com/en/mp3/success_us_1.mp3"
     )
     
-    let favoriteTwo = Favorite(
+    let favoriteTwo = Favourite(
         word: "super",
         transcription: "super",
         pronunciation: "https://audio.oxforddictionaries.com/en/mp3/success_us_1.mp3"
@@ -26,7 +26,7 @@ class DataManager {
         Word(id: "success", results: [resultOfNoun])
     }
     
-    lazy var resultOfNoun = Result(
+    lazy var resultOfNoun = ResultTranslation(
         id: "success",
         lexicalEntries: [lexicalEntryOfNoun]
     )
@@ -51,7 +51,6 @@ class DataManager {
     
     lazy var sence = Sense(
         id: "1",
-        notes: [note],
         translations: [translation],
         examples: [example]
     )
@@ -60,8 +59,6 @@ class DataManager {
         text: "Example text",
         translations: [translation]
     )
-    
-    lazy var note = Note(text: "note note note note note", type: "noteType")
     
     lazy var translation = Translation(text: "translationOne")
     lazy var translationTwo = Translation(text: "translationTwo")

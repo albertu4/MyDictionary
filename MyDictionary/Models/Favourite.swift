@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct Favorite: Hashable {
+struct Favourite: Hashable {
     let word: String
     let transcription: String
     let pronunciation: String
 }
 
-extension Favorite {
+extension Favourite {
     
-    static func getFavorite() -> [Favorite] {
-        var favoriteList: [Favorite] = []
+    static func getFavorite() -> [Favourite] {
+        var favoriteList: [Favourite] = []
         
         favoriteList.append(DataManager.shared.favoriteOne)
         favoriteList.append(DataManager.shared.favoriteTwo)

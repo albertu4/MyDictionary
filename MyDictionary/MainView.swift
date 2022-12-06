@@ -71,7 +71,7 @@ struct MainView: View {
 
 extension MainView {
     
-    private func getSense(result: Result) -> [Sense] {
+    private func getSense(result: ResultTranslation) -> [Sense] {
         guard let senses = result.lexicalEntries?.first?.entries?.first?.senses else { return [] }
         return senses
     }
