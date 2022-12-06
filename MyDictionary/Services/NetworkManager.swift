@@ -50,10 +50,14 @@ class NetworkManager {
         }).resume()
     }
     
-    func fetchSearchableWord(word: String, fromLanguage: String, toLanguage: String, completion: @escaping(Result) -> ()) {
+    func fetchSearching(word: String, fromLanguage: String, toLanguage: String, completion: @escaping(Searching) -> ()) {
         
         let wordId = word.lowercased()
-        let url = URL(string: "https://od-api.oxforddictionaries.com/api/v2/search/thesaurus/en?q=\(wordId)")!
+        guard let url = URL(string: "https://od-api.oxforddictionaries.com/api/v2/search/translations/\(fromLanguage)/\(toLanguage)?q=\(wordId)")
+        else {
+            print(NetworkError.invalidURL)
+            return
+        }
         
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -67,7 +71,7 @@ class NetworkManager {
             }
 
             do {
-                let searching = try JSONDecoder().decode(Result.self, from: data)
+                let searching = try JSONDecoder().decode(Searching.self, from: data)
                 completion(searching)
                 
             } catch let error {

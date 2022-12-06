@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @State private var word = Word.getWord()
+    @State private var searching: Searching?
     @State private var searchText = ""
     @State private var isFavorite = false
     
@@ -23,7 +24,7 @@ struct MainView: View {
                         Text(word.id)
                             .font(.title)
                             .fontWeight(.bold)
-                        .foregroundColor(.blue)
+                            .foregroundColor(.blue)
                         
                         Text(result.lexicalEntries?.first?.lexicalCategory.id ?? "")
                             .font(.subheadline)
@@ -38,7 +39,7 @@ struct MainView: View {
                             Image(systemName: image)
                                 .foregroundColor(.red)
                         }
-
+                        
                     }
                     
                     PronunciationView(result: result)
@@ -53,41 +54,39 @@ struct MainView: View {
                 }
             }
             .navigationTitle("Word")
-            .searchable(text: $searchText)
+            .searchable(text: $searchText) {
+                ForEach(searching?.results ?? []) { result in
+                    Button(result.word) {
+                        fetch(word: result.word)
+                    }
+                    
+                }
+            }
         }
         .onChange(of: searchText) { text in
-            fetch(word: text)
+            fetchSearching(word: text)
         }
     }
-    
-//    private var searchableWord: [String] {
-//        var word: [String] = []
-//        NetworkManager.shared.fetchSearchableWord(url: Link.shared.searching) { result in
-//            word.append(result.label ?? "")
-//        }
-//
-//        return searchText == "" ? word : word.filter{ $0.contains(searchText.lowercased())
-//        }
-//    }
 }
-    
+
 extension MainView {
     
-    private func getCategory(result: Result) -> String {
-        guard let category = result.lexicalEntries?.first?.lexicalCategory.text else { return "" }
-        return category
-    }
-      
     private func getSense(result: Result) -> [Sense] {
         guard let senses = result.lexicalEntries?.first?.entries?.first?.senses else { return [] }
         return senses
     }
 }
-    
+
 extension MainView {
     private func fetch(word: String) {
         NetworkManager.shared.fetch(word: word, fromLanguage: "en", toLanguage: "ru") { word in
             self.word = word
+        }
+    }
+    
+    private func fetchSearching(word: String) {
+        NetworkManager.shared.fetchSearching(word: word, fromLanguage: "en", toLanguage: "ru") { searching in
+            self.searching = searching
         }
     }
 }

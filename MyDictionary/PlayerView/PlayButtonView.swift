@@ -21,16 +21,6 @@ struct PlayButtonView: View {
             Spacer()
             
             if englishKind == "American English" {
-//                Text("🇺🇸")
-//                    .font(.largeTitle)
-//                ZStack {
-//                    RoundedRectangle(cornerRadius: 5)
-//                        .frame(width: 30, height: 30)
-//
-//                    Text("US")
-//                        .foregroundColor(.white)
-//                        .fontWeight(.semibold)
-//                }
                 Image(englishKind)
                     .resizable()
                     .frame(width: 30, height: 30)
@@ -42,16 +32,6 @@ struct PlayButtonView: View {
                     .frame(width: 30, height: 30)
                     .overlay(Circle().stroke(Color.white, lineWidth: 0.5))
                     .shadow(color: .red, radius: 5)
-//                Text("🇬🇧")
-//                    .font(.largeTitle)
-//                ZStack {
-//                    RoundedRectangle(cornerRadius: 5)
-//                        .frame(width: 30, height: 30)
-//
-//                    Text("GB")
-//                        .foregroundColor(.white)
-//                        .fontWeight(.semibold)
-//                }
                 
             }
         }
