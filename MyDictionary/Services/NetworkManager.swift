@@ -18,8 +18,8 @@ class NetworkManager {
     static let shared = NetworkManager()
     private init() {}
     
-    private let appId = "63af5f08"
-    private let appKey = "9074834086355926399c7e0e9af39f74"
+    private let appId = "113fc935"
+    private let appKey = "d1a11fe8fce0559b1955a2424be5dbf4"
     
     func fetch(word: String, fromLanguage: String, toLanguage: String, completion: @escaping(Word) -> ()) {
         

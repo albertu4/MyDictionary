@@ -30,11 +30,6 @@ extension SenseView {
         return translations
     }
     
-//    private func getNotes(sense: Sense?) -> [Note] {
-//        guard let notes = sense?.notes else { return [] }
-//        return notes
-//    }
-    
     private func getExamples(sense: Sense) -> [Example] {
         guard let examples = sense.examples else { return [] }
         return examples

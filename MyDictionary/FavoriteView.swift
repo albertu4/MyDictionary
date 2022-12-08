@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FavoriteView: View {
     
+    @EnvironmentObject var notifications: Notifications
     var favorites: FetchedResults<Favorite>
     
     var body: some View {
@@ -29,6 +30,9 @@ struct FavoriteView: View {
                     }
                 }
                 .navigationTitle("Favorite list")
+                Button("go") {
+                    notifications.scheduleNotification(notificationType: "Translate", message: randomFavoriteWord())
+                }
             }
             
         }
@@ -39,6 +43,10 @@ struct FavoriteView: View {
             let word = favorites[index]
             StorageManger.shared.delete(word: word)
         }
+    }
+    
+    private func randomFavoriteWord() -> String {
+        favorites.randomElement()?.title?.capitalized ?? ""
     }
 }
 
