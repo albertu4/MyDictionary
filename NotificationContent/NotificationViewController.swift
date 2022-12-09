@@ -20,6 +20,10 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         setNotificationCategories()
     }
     
+    func openApp() {
+        extensionContext?.performNotificationDefaultAction()
+    }
+    
     func dismissNotification() {
         extensionContext?.dismissNotificationContentExtension()
     }
@@ -31,6 +35,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         
         switch response.actionIdentifier {
+        case "enter":
+            openApp()
         default:
             dismissNotification()
         }
@@ -39,7 +45,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     func setNotificationCategories() {
         
         let actions = [
-            UNNotificationAction(identifier: "dismiss",  title: "I don't know", options: [.destructive]),
+            UNNotificationAction(identifier: "enter", title: "Open"),
+            UNNotificationAction(identifier: "dismiss",  title: "I don't know", options: [.destructive])
         ]
         
         let category = UNNotificationCategory(identifier: "actions",

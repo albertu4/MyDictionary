@@ -24,6 +24,12 @@ struct ContentView: View {
                     Image(systemName: "bookmark.fill")
                     Text("Favorite")
                 }
+            PronounceView()
+                .tabItem {
+                    Image(systemName: "mic")
+                    Text("Pronounce")
+                }
+            
         }
     }
 }
