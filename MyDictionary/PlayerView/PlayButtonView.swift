@@ -10,6 +10,7 @@ import SwiftUI
 struct PlayButtonView: View {
     let sound: String
     let transcription: String
+    let lexicalCategory: String
     let englishKind: String
     
     var body: some View {
@@ -17,6 +18,7 @@ struct PlayButtonView: View {
             PlayerView(sound: sound)
             Text("/ \(transcription) / ")
                 .font(.headline)
+            Text(lexicalCategory)
             
             Spacer()
             
@@ -40,6 +42,6 @@ struct PlayButtonView: View {
 
 struct PlayButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayButtonView(sound: "", transcription: "saksess", englishKind: "American Enlgish")
+        PlayButtonView(sound: "", transcription: "saksess", lexicalCategory: "noun", englishKind: "American Enlgish")
     }
 }

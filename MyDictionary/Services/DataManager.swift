@@ -14,9 +14,10 @@ class DataManager {
         Word(id: "success", results: [resultOfNoun])
     }
     
-    lazy var resultOfNoun = ResultTranslation(
+    lazy var resultOfNoun = ResultOfFetch(
         id: "success",
-        lexicalEntries: [lexicalEntryOfNoun]
+        lexicalEntries: [lexicalEntryOfNoun],
+        word: "word success"
     )
     
     lazy var lexicalEntryOfNoun = LexicalEntry(
@@ -24,12 +25,13 @@ class DataManager {
         lexicalCategory: lexicalCategoryOfNoun
     )
     
-    lazy var entry = Entry(pronunciations: [pronunciationUK, pronunciationUS], senses: [sence])
+    lazy var entry = Entry(homographNumber: "1", pronunciations: [pronunciationUK, pronunciationUS], senses: [sence])
     
     lazy var sence = Sense(
         id: "1",
         translations: [translation],
-        examples: [example]
+        examples: [example],
+        definitions: ["one", "two"]
     )
     
     lazy var example = Example(

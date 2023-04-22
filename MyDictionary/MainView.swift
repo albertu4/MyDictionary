@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @State private var word = Word.getWord()
-    @State private var searchingResults: [SearchingResult] = []
+    @State private var searchingResults: [ResultOfFetch] = []
     @State private var searchText = ""
     @State private var isFavorite = false
     @State private var alertPresented = false
@@ -20,7 +20,7 @@ struct MainView: View {
         
         NavigationView {
             
-            List(word.results, id: \.lexicalEntries?.first?.lexicalCategory.id) { result in
+            List(word.results) { result in
                 
                 HStack(alignment: .firstTextBaseline) {
                     Text(word.id)
@@ -28,7 +28,7 @@ struct MainView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.blue)
                     
-                    Text(result.lexicalEntries?.first?.lexicalCategory.id ?? "")
+                    Text(result.lexicalEntries?.first?.lexicalCategory?.id ?? "")
                         .font(.subheadline)
                     
                     Spacer()
@@ -51,13 +51,13 @@ struct MainView: View {
                 
                 PronunciationView(result: result)
                 
-                Section("Translation") {
-                    SenseView(senses: getSense(result: result), isExample: false)
-                }
-                
-                Section("Examples") {
-                    SenseView(senses: getSense(result: result), isExample: true)
-                }
+//                Section("Translation") {
+//                    SenseView(senses: getSense(result: result), isExample: false)
+//                }
+//                
+//                Section("Examples") {
+//                    SenseView(senses: getSense(result: result), isExample: true)
+//                }
             }
             .alert("Word duplicate", isPresented: $alertPresented, actions: {}) {
                 Text("Check word list")
@@ -66,8 +66,8 @@ struct MainView: View {
         .navigationTitle("Word")
         .searchable(text: $searchText) {
             ForEach(searchingResults) { result in
-                Button(result.word) {
-                    fetch(word: result.word)
+                Button(result.word ?? "") {
+                    fetch(word: result.word ?? "")
                 }
             }
         }
@@ -80,7 +80,7 @@ struct MainView: View {
 
 extension MainView {
     
-    private func getSense(result: ResultTranslation) -> [Sense] {
+    private func getSense(result: ResultOfFetch) -> [Sense] {
         guard let senses = result.lexicalEntries?.first?.entries?.first?.senses else { return [] }
         return senses
     }
@@ -99,11 +99,11 @@ extension MainView {
         }
     }
     
-    private func saveFavorite(result: ResultTranslation) {
+    private func saveFavorite(result: ResultOfFetch) {
         StorageManger.shared.saveWord(
             word.id,
-            transcription: result.lexicalEntries?.first?.entries?.first?.pronunciations.first?.phoneticSpelling ?? "",
-            pronunciation: result.lexicalEntries?.first?.entries?.first?.pronunciations.first?.dialects.first ?? ""
+            transcription: result.lexicalEntries?.first?.entries?.first?.pronunciations?.first?.phoneticSpelling ?? "",
+            pronunciation: result.lexicalEntries?.first?.entries?.first?.pronunciations?.first?.dialects.first ?? ""
         )
     }
 }

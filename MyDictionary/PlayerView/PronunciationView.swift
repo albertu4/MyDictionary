@@ -9,24 +9,30 @@ import SwiftUI
 
 struct PronunciationView: View {
     
-    let result: ResultTranslation
+    let result: ResultOfFetch
     
     var body: some View {
-        ForEach(getPronunciations(result: result), id: \.self) { pronunciation in
+        ForEach(result.lexicalEntries ?? []) { lexicalEntry in
             
-            PlayButtonView(
-                sound: pronunciation.audioFile,
-                transcription: pronunciation.phoneticSpelling,
-                englishKind: pronunciation.dialects.first ?? ""
-            )
+            ForEach(lexicalEntry.entries ?? [], id: \.homographNumber) { entry in
+                
+                ForEach(entry.pronunciations ?? [], id: \.self) { pronunciation in
+                    
+                    if let audio = pronunciation.audioFile {
+                        
+                        PlayButtonView(
+                            sound: audio,
+                            transcription: pronunciation.phoneticSpelling,
+                            lexicalCategory: lexicalEntry.lexicalCategory?.text ?? "",
+                            englishKind: pronunciation.dialects.first ?? ""
+                        )
+                    }
+                }
+            }
         }
     }
-    
-    private func getPronunciations(result: ResultTranslation) -> [Pronunciation] {
-        guard let pronunciations = result.lexicalEntries?.first?.entries?.first?.pronunciations else { return [] }
-        return pronunciations
-    }
 }
+
 
 struct PronunciationView_Previews: PreviewProvider {
     static var previews: some View {

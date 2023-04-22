@@ -90,11 +90,44 @@ class NetworkManager {
         }).resume()
     }
     
-    func fetchPronunciation(word: String, language: String, completion: @escaping(Pronounce) -> ()) {
+    func fetchPronunciationGB(word: String, language: String, completion: @escaping(PronunciationGB) -> ()) {
         
         let wordId = word.lowercased()
         guard let url = URL(string: "https://od-api.oxforddictionaries.com/api/v2/entries/\(language)/\(wordId)?fields=pronunciations&strictMatch=false")
+        else {
+            print(NetworkError.invalidURL)
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue(appId, forHTTPHeaderField: "app_id")
+        request.addValue(appKey, forHTTPHeaderField: "app_key")
+        
+        URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+            guard let data = data else {
+                print(NetworkError.noData)
+                return
+            }
+            
+            do {
+                let pronunciation = try JSONDecoder().decode(PronunciationGB.self, from: data)
+                DispatchQueue.main.async {
+                    completion(pronunciation)
+                }
                 
+            } catch let error {
+                print("Word2", NetworkError.decodingError)
+                print(error.localizedDescription)
+            }
+            
+        }).resume()
+    }
+    
+    func fetchDefinition(word: String, language: String, completion: @escaping(Definition) -> ()) {
+        
+        let wordId = word.lowercased()
+        guard let url = URL(string: "https://od-api.oxforddictionaries.com/api/v2/words/\(language)?q=\(wordId)")
                 
         else {
             print(NetworkError.invalidURL)
@@ -114,22 +147,24 @@ class NetworkManager {
             
             do {
                 
-                let jsonData = try? JSONSerialization.jsonObject(with: data, options: [])
+                let jsonData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+                print(jsonData!)
                 
-                if let pronounce = jsonData as? [Pronounce: Any] {
-                    print(pronounce)
-                } else { print("error") }
-                
-                let pronunciations = try JSONDecoder().decode(Pronounce.self, from: data)
-                completion(pronunciations)
+                let definition = try JSONDecoder().decode(Definition.self, from: data)
+                DispatchQueue.main.async {
+                    completion(definition)
+                }
                 
             } catch let error {
-                print("Pronunciation", NetworkError.decodingError)
+                print("Definition", NetworkError.decodingError)
                 print(error.localizedDescription)
             }
             
         }).resume()
     }
+
+    
+   
     
     //                let jsonData = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
     //                print(jsonData!)

@@ -24,12 +24,16 @@ struct ContentView: View {
                     Image(systemName: "bookmark.fill")
                     Text("Favorite")
                 }
-            PronounceView()
+            Pronunciations()
                 .tabItem {
                     Image(systemName: "mic")
                     Text("Pronounce")
                 }
-            
+            DefinitionView()
+                .tabItem {
+                    Image(systemName: "person")
+                    Text("Dedfitioin")
+                }
         }
     }
 }

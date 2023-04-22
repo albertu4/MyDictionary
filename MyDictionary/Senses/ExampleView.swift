@@ -22,6 +22,6 @@ struct ExampleView: View {
 
 struct ExampleView_Previews: PreviewProvider {
     static var previews: some View {
-        ExampleView(examples: (Word.getWord().results.first?.lexicalEntries?.first?.entries?.first?.senses.first?.examples)!)
+        ExampleView(examples: (Word.getWord().results.first?.lexicalEntries?.first?.entries?.first?.senses?.first?.examples)!)
     }
 }

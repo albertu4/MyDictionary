@@ -9,15 +9,11 @@ import SwiftUI
 
 struct SenseView: View {
     let senses: [Sense]
-    let isExample: Bool
     
     var body: some View {
-        ForEach(senses, id: \.id) { sense in
-            
-            if isExample {
-                ExampleView(examples: getExamples(sense: sense))
-            } else {
-                TranslationView(translations: getTranslations(sense: sense))
+        ForEach(senses) { sense in
+            ForEach(sense.definitions ?? [], id: \.self) { definition in
+                Text(definition)
             }
         }
     }
@@ -38,6 +34,6 @@ extension SenseView {
 
 struct SenseView_Previews: PreviewProvider {
     static var previews: some View {
-        SenseView(senses: (Word.getWord().results.first?.lexicalEntries?.first?.entries?.first?.senses)!, isExample: true)
+        SenseView(senses: [])
     }
 }
